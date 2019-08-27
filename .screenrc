@@ -1,0 +1,10 @@
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+startup_message off
+cjkwidth off
+vbell off
+
+
+shelltitle "$ |bash"
+hardstatus alwayslastline "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %Y %m/%d %C%a "
+
+defscrollback 10000

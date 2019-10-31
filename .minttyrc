@@ -1,5 +1,4 @@
 FontHeight=10
-
 Black=0,0,0
 Red=255,100,0
 Green=183,234,17
@@ -15,8 +14,18 @@ BoldYellow=234,206,28
 BoldBlue=107,155,219
 BoldMagenta=237,157,185
 BoldCyan=64,255,255
-BoldWhite=255,255,25
+BoldWhite=214,214,209
 BackgroundColour=0,0,0
 Font=Lucida Console
-Rows=48
-Columns=83
+Rows=50
+Columns=95
+
+BoldAsFont=yes
+BoldAsColour=yes
+ForegroundColour=248,248,242
+Transparency=low
+CursorColour=248,248,242
+OpaqueWhenFocused=no
+Term=xterm-256color
+BoldAsFont=yes
+BoldAsColour=yes

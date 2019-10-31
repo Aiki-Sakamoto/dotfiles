@@ -1,128 +1,185 @@
-" ファイルを上書きする前にバックアップを作ることを無効化
-set nowritebackup
-" ファイルを上書きする前にバックアップを作ることを無効化
-set nobackup
-" vim の矩形選択で文字が無くても右へ進める
-set virtualedit=block
-" 挿入モードでバックスペースで削除できるようにする
-set backspace=indent,eol,start
-" 全角文字専用の設定
-set ambiwidth=double
-" wildmenuオプションを有効(vimバーからファイルを選択できる)
-set wildmenu
+" TODO サーバ用途とローカル用途を分ける
+" vim scriptの文字コード
+scriptencoding utf-8
+" ファイル文字コード自動判断、iconvに依存
+set fileencodings=ucs-bom,utf-8,cp932,sjis,euc-jp,iso-2022-jp
+" vim互換モードオフ: 方向キー問題対応
+set nocompatible
 
-"----------------------------------------
-" 検索
-"----------------------------------------
-" 検索するときに大文字小文字を区別しない
+" search
 set ignorecase
-" 小文字で検索すると大文字と小文字を無視して検索
+" 大文字小文字が混在しているときは区別
 set smartcase
-" 検索がファイル末尾まで進んだら、ファイル先頭から再び検索
-set wrapscan
-" インクリメンタル検索 (検索ワードの最初の文字を入力した時点で検索が開始)
-set incsearch
-" 検索結果をハイライト表示
-set hlsearch
 
-"----------------------------------------
-" 表示設定
-"----------------------------------------
-" エラーメッセージの表示時にビープを鳴らさない
-set noerrorbells
-" Windowsでパスの区切り文字をスラッシュで扱う
-set shellslash
-" 対応する括弧やブレースを表示
-set showmatch matchtime=1
-" インデント方法の変更
-set cinoptions+=:0
-" メッセージ表示欄を2行確保
-set cmdheight=2
-" ステータス行を常に表示
-set laststatus=2
-" ウィンドウの右下にまだ実行していない入力中のコマンドを表示
-set showcmd
-" 省略されずに表示
-set display=lastline
-" タブ文字を CTRL-I で表示し、行末に $ で表示する
+" for vim-airline
+set t_Co=256
+
+
+" display tab
 set list
-" 行末のスペースを可視化
-set listchars=tab:^\ ,trail:~
-" コマンドラインの履歴を10000件保存する
-set history=10000
-" コメントの色を水色
-hi Comment ctermfg=3
-" 入力モードでTabキー押下時に半角スペースを挿入
-set expandtab
-" インデント幅
-set shiftwidth=2
-" タブキー押下時に挿入される文字幅を指定
-set softtabstop=2
-" ファイル内にあるタブ文字の表示幅
-set tabstop=2
-" ツールバーを非表示にする
-set guioptions-=T
-" yでコピーした時にクリップボードに入る
-set guioptions+=a
-" メニューバーを非表示にする
-set guioptions-=m
-" 右スクロールバーを非表示
-set guioptions+=R
-" 対応する括弧を強調表示
-set showmatch
-" 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
-set smartindent
-" スワップファイルを作成しない
-set noswapfile
-" 検索にマッチした行以外を折りたたむ(フォールドする)機能
-set nofoldenable
-" タイトルを表示
-set title
-" 行番号の表示
-set number
-" ヤンクでクリップボードにコピー
-set clipboard=unnamed,autoselect
-" Escの2回押しでハイライト消去
-nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
-" シンタックスハイライト
-syntax on
-" すべての数を10進数として扱う
-set nrformats=
-" 行をまたいで移動
-set whichwrap=b,s,h,l,<,>,[,],~
-" バッファスクロール
-set mouse=a
+set listchars=tab:>\ ,trail:-,nbsp:%,extends:>,precedes:<
 
-" auto reload .vimrc
-augroup source-vimrc
+" display full width space
+augroup highlightIdegraphicSpace
   autocmd!
-  autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
-  autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+  autocmd VimEnter,WinEnter,Colorscheme * highlight IdeographicSpace cterm=underline ctermfg=DarkBlue guifg=DarkBlue
+  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
-" auto comment off
-augroup auto_comment_off
-  autocmd!
-  autocmd BufEnter * setlocal formatoptions-=r
-  autocmd BufEnter * setlocal formatoptions-=o
-augroup END
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+set laststatus=2
 
-" HTML/XML閉じタグ自動補完
-augroup MyXML
-  autocmd!
-  autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
-  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
-augroup END
+" vimdiff
+"highlight DiffAdd    ctermfg=10
+"highlight DiffDelete    ctermfg=10
+"highlight DiffChange ctermfg=10
+"highlight DiffText   ctermfg=10
+highlight DiffAdd    ctermfg=10 ctermbg=22
+highlight DiffDelete ctermfg=10 ctermbg=52
+highlight DiffChange ctermfg=10 ctermbg=17
+highlight DiffText   ctermfg=10 ctermbg=21
 
-" 編集箇所のカーソルを記憶
-if has("autocmd")
-  augroup redhat
-    " In text files, always limit the width of text to 78 characters
-    autocmd BufRead *.txt set tw=78
-    " When editing a file, always jump to the last cursor position
-    autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \   exe "normal! g'\"" |
-    \ endif
-  augroup END
+
+" ------- key -----------
+:inoremap <C-@> <C-G>u<C-@>
+
+" ------- neobundle -----------
+" TODO 環境変数がセットされていたらロードするようにする
+if 1
+  " Note: Skip initialization for vim-tiny or vim-small.
+  if 0 | endif
+
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+
+  " Required:
+  if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+  endif
+
+  " Required:
+  call neobundle#begin(expand('~/.vim/bundle/'))
+
+  " Let NeoBundle manage NeoBundle
+  " Required:
+  NeoBundleFetch 'Shougo/neobundle.vim'
+
+  " My Bundles here:
+  NeoBundle 'Shougo/vimproc'
+  "NeoBundle 'https://github.com/Shougo/clang_complete.git'
+  "NeoBundle 'https://github.com/Shougo/echodoc.git'
+  "NeoBundle 'https://github.com/Shougo/neocomplcache.git'
+  "NeoBundle 'https://github.com/Shougo/neobundle.vim.git'
+
+  NeoBundle 'https://github.com/Shougo/unite.vim.git'
+  NeoBundle 'https://github.com/Shougo/neomru.vim.git'
+    let g:ctrlp_mruf_max   = 100
+    let g:unite_source_file_mru_limit=100
+  "NeoBundle 'https://github.com/Shougo/vim-vcs.git'
+  "NeoBundle 'https://github.com/Shougo/vimfiler.git'
+  "NeoBundle 'https://github.com/Shougo/vimshell.git'
+  "NeoBundle 'https://github.com/Shougo/vinarise.git'
+  NeoBundle 'Shougo/neomru.vim'
+
+  NeoBundle 'bling/vim-airline'
+    "let g:airline#extensions#tabline#enabled = 1
+    "let g:airline#extensions#tabline#tab_nr_type = 1
+    "let g:airline#extensions#tabline#fnamemod = ':t'
+    "let g:airline_left_sep = '▶'
+    "let g:airline_right_sep = '◀'
+    "let g:airline_left_sep = '▷'
+    "let g:airline_right_sep = '◁'
+    let g:airline_left_sep = '◤'
+    let g:airline_right_sep = '◥'
+    let g:airline#extensions#whitespace#enabled = 0
+    let g:airline#extensions#default#section_truncate_width = {
+      \ 'b': 79,
+      \ 'x': 88,
+      \ 'y': 60,
+      \ 'z': 45,
+      \ }
+    let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
+  NeoBundle "slim-template/vim-slim"
+  NeoBundle 'https://github.com/OrangeT/vim-csharp.git'
+  " 文字列囲い込み入力補佐
+  NeoBundle 'surround.vim'
+    let g:surround_{char2nr("「")} = "「\r」"
+  " コメントアウト入力補佐
+  NeoBundle 'tomtom/tcomment_vim'
+
+  call neobundle#end()
+
+  " Required:
+  filetype plugin indent on
+
+  " If there are uninstalled bundles found on startup,
+  " this will conveniently prompt you to install them.
+  NeoBundleCheck
 endif
+
+" ---------------------------
+" user command
+
+command! -range Escape :<line1>,<line2>!perl -CIO -pE 'use utf8;s/([\#\%\\\\])/\\$1/g'
+
+command! -range Kata2hira :<line1>,<line2>!perl -CIO -pE 'use utf8;tr/ァ-ン/ぁ-ん/'
+command! -range Hira2kata :<line1>,<line2>!perl -CIO -pE 'use utf8;tr/ぁ-ん/ァ-ン/'
+command! -range Hankana2zen :<line1>,<line2>!perl -CIO -mEncode -mEncode::JP::H2Z -pE 'use utf8;$_=Encode::encode("euc-jp",$_);Encode::JP::H2Z::h2z(\$_);$_=Encode::decode("euc-jp",$_)'
+command! -range Zen2han :<line1>,<line2>!perl -CIO -pE "use utf8;tr/０-９Ａ-Ｚａ-ｚ　！“”＃＄％＆‘’（）＊＋，－．／：；＜＝＞？＠［］＾＿｛｜｝/0-9A-Za-z \!\"\"\#\$\%&\'\'()*+,\\-.\\/:;<=>?@[]^_{\|}/"
+command! Randstr8 :r!perl -e 'print ['A'..'Z','0'..'9']->[int(rand(34))] for(1..8)'
+"command! Randstr8 :r!perl -e 'print "\#"; print ['A'..'Z','0'..'9']->[int(rand(34))] for(1..8)'
+command! -nargs=1 Grep :vim <args> **|cw|/<args>
+command! Genmemotags :!grep  -P '[ \t　\#][0-9A-Z]{8}\r*$' *.txt **/*.txt | tr -d $"\r" | perl -CIO -nE 'use utf8;@a=split ":";if($a[1] \!~ /→/ && ($a[1] \!~ /□/ || $a[1] =~ /^□/)){if($a[1]=~/([0-9A-Z]{8})$/){$k=$1;$a[1]=~s/\//\\\//g;print "$k\t$a[0]\t/^$a[1]"}}' | sort > .tags_in; cat .tags_in .tags_out | sort > tags
+command! GenmemotagsOut :!grep  -P '[ \t　\#][0-9A-Z]{8}\r*$' `cat .tags_path` | tr -d $"\r" | perl -CIO -nE 'use utf8;@a=split ":";if($a[0] \!~ / / && $a[1] \!~ /→/ && ($a[1] \!~ /□/ || $a[1] =~ /^□/)){if($a[1]=~/([0-9A-Z]{8})$/){$k=$1;$a[1]=~s/\//\\\//g;print "$k\t$a[0]\t/^$a[1]"}}' | sort > .tags_out
+
+command! IndentTab set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+command! IndentSpace set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+" 作成中
+" command! AddHashTag :Randstr8kJr　
+
+" ---------------------------
+" post vimrc
+
+" シンタックスハイライト
+syntax enable
+"colorscheme monokai
+" デフォルトのインデント設定
+set tabstop=4
+set shiftwidth=4
+set autoindent
+" ファイルタイプの検出と各種プラグインオン
+filetype plugin indent on
+" ファイルタイプ設定とインデント設定
+augroup fileTypeSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.txt set filetype=mytxt
+    autocmd BufNewFile,BufRead *.txt setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.rb setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+" 検索語のハイライト
+set hlsearch
+" hlsearch color、検索語ハイライトの色
+hi Search ctermfg=black ctermbg=blue
+
+set history=3000
+
+" カレントディレクトリの自動変更は行わない
+set noautochdir
+
+" tagsの読み込みを一段上のディレクトリからも行わせるセミコロン追記
+set tags=./tags;

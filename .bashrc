@@ -210,6 +210,8 @@ stty stop undef
 
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
+alias la='ls -la --color=auto'
+
 alias encodeurl='perl -mCGI -lnE "say CGI::escape(\$_)"'
 alias decodeurl='perl -mCGI -lnE "say CGI::unescape(\$_)"'
 alias decodehtml="perl -CIO -lanE 's/&#([0-9]+);/chr($1)/ge;s/&#x([a-zA-Z0-9]+);/chr(hex($1))/ge;say'"

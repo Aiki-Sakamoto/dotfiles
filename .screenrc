@@ -1,10 +1,22 @@
-termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 startup_message off
-cjkwidth off
+
+defscrollback 10000
+
+# 現在の背景色で消去する(256色対応)
+defbce on
+
+# 256色対応
+term xterm-256color
+
+# エラー時に画面がフラッシュするのを防ぐ
 vbell off
+
+# screen呼ぶとウインドウサイズが変化してしまう問題対応と
+# ssh先でtigが崩れる問題対応(cjkwidthと双方必要)
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+# 縦分割時にvim等のレイアウトが崩れる問題対応
+cjkwidth off
 
 
 shelltitle "$ |bash"
 hardstatus alwayslastline "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %Y %m/%d %C%a "
-
-defscrollback 10000

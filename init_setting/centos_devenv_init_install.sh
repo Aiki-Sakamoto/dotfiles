@@ -1,5 +1,8 @@
 #/bin/sh
 
+# chenge time zone Tokyo
+sudo timedatectl set-timezone Asia/Tokyo
+
 # install git newer version
 sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
 sudo yum -y remove git git-\*

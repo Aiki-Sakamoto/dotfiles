@@ -1,5 +1,10 @@
 #/bin/sh
 
+# install git newer version
+sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
+sudo yum -y remove git git-\*
+sudo yum install -y git --enablerepo=ius --disablerepo=base,epel,extras,updates
+
 # develop env tools
 sudo yum install -y wget
 sudo yum install -y curl
@@ -12,7 +17,6 @@ sudo yum install -y unzip
 sudo yum install -y vim
 sudo yum install -y rdiff-backup
 sudo yum install -y rsync
-sudo yum install -y git-all
 sudo yum install -y tig
 sudo yum install -y subversion
 sudo yum install -y bc

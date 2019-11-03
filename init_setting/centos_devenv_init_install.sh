@@ -3,7 +3,10 @@
 # chenge time zone Tokyo
 sudo timedatectl set-timezone Asia/Tokyo
 
-# install git newer version
+# yum update
+sudo yum update -y
+
+# install IIS repo and Git newer version
 sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
 sudo yum -y remove git git-\*
 sudo yum install -y git --enablerepo=ius --disablerepo=base,epel,extras,updates

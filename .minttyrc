@@ -16,7 +16,7 @@ BoldMagenta=237,157,185
 BoldCyan=64,255,255
 BoldWhite=214,214,209
 BackgroundColour=0,0,0
-Font=Lucida Console
+Font=MeiryoKe_Console
 Rows=50
 Columns=95
 

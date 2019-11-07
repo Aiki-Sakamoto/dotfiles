@@ -6,6 +6,9 @@ set fileencodings=ucs-bom,utf-8,cp932,sjis,euc-jp,iso-2022-jp
 " vim互換モードオフ: 方向キー問題対応
 set nocompatible
 
+" 行番号を表示
+set number
+
 " search
 set ignorecase
 " 大文字小文字が混在しているときは区別
@@ -13,7 +16,6 @@ set smartcase
 
 " for vim-airline
 set t_Co=256
-
 
 " display tab
 set list

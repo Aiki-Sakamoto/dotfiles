@@ -17,6 +17,14 @@ termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 # 縦分割時にvim等のレイアウトが崩れる問題対応
 cjkwidth off
 
-
+# 手動で開くwindowの名前と時刻表示設定
 shelltitle "$ |bash"
 hardstatus alwayslastline "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %Y %m/%d %C%a "
+
+# open windows(tabs)
+# /cygwin/c/のシンボリックリンクを/home/ユーザー/以下に作成してから。
+# ln -s /cygdrive/c/ ~/
+
+screen -t workspace 0
+select 0
+stuff "cd ~/c/workspace/\015"

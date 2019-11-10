@@ -35,4 +35,5 @@ sudo yum install -y gcc-c++
 sudo yum install -y openssl-devel
 sudo yum install -y readline-devel
 sudo yum install -y zlib-devel
-sudo yum install -y sqlite
+sudo yum install -y sqlite-devel
+sudo yum install -y node.js npm

@@ -24,7 +24,9 @@ hardstatus alwayslastline "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %Y %m/
 # open windows(tabs)
 # /cygwin/c/のシンボリックリンクを/home/ユーザー/以下に作成してから。
 # ln -s /cygdrive/c/ ~/
+# windowを複数作りたければ、workspace 1 と増やしていく。
+# stuff "ここにコマンド\n" コマンドを実行できる。最後に改行"\n"を入れる。
 
 screen -t workspace 0
 select 0
-stuff "cd ~/c/workspace/\015"
+stuff "cd ~/c/workspace/\n"

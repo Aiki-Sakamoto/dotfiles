@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 # chenge time zone Tokyo
 sudo timedatectl set-timezone Asia/Tokyo

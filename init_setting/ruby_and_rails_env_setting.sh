@@ -1,4 +1,4 @@
-#! bin/bash
+#!/bin/bash
 
 # 以下のように実行する
 # RUBY_VER=2.6.5 RAILS_VER=5.2.4 sh ruby_and_rails_env_setting.sh

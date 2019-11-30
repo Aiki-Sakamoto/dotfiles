@@ -1,0 +1,96 @@
+" TODO サーバ用途とローカル用途を分ける
+" vim scriptの文字コード
+scriptencoding utf-8
+" ファイル文字コード自動判断、iconvに依存
+set fileencodings=ucs-bom,utf-8,cp932,sjis,euc-jp,iso-2022-jp
+" vim互換モードオフ: 方向キー問題対応
+set nocompatible
+
+" search
+set ignorecase
+" 大文字小文字が混在しているときは区別
+set smartcase
+
+" for vim-airline
+set t_Co=256
+
+" display tab
+set list
+set listchars=tab:>\ ,trail:-,nbsp:%,extends:>,precedes:<
+
+" display full width space
+augroup highlightIdegraphicSpace
+  autocmd!
+  autocmd VimEnter,WinEnter,Colorscheme * highlight IdeographicSpace cterm=underline ctermfg=DarkBlue guifg=DarkBlue
+  autocmd VimEnter,WinEnter * match IdeographicSpace /　/
+augroup END
+
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+set laststatus=2
+
+" vimdiff
+"highlight DiffAdd    ctermfg=10
+"highlight DiffDelete    ctermfg=10
+"highlight DiffChange ctermfg=10
+"highlight DiffText   ctermfg=10
+highlight DiffAdd    ctermfg=10 ctermbg=22
+highlight DiffDelete ctermfg=10 ctermbg=52
+highlight DiffChange ctermfg=10 ctermbg=17
+highlight DiffText   ctermfg=10 ctermbg=21
+
+
+" ------- key -----------
+:inoremap <C-@> <C-G>u<C-@>
+
+
+" ---------------------------
+" user command
+
+command! -range Escape :<line1>,<line2>!perl -CIO -pE 'use utf8;s/([\#\%\\\\])/\\$1/g'
+
+command! -range Kata2hira :<line1>,<line2>!perl -CIO -pE 'use utf8;tr/ァ-ン/ぁ-ん/'
+command! -range Hira2kata :<line1>,<line2>!perl -CIO -pE 'use utf8;tr/ぁ-ん/ァ-ン/'
+command! -range Hankana2zen :<line1>,<line2>!perl -CIO -mEncode -mEncode::JP::H2Z -pE 'use utf8;$_=Encode::encode("euc-jp",$_);Encode::JP::H2Z::h2z(\$_);$_=Encode::decode("euc-jp",$_)'
+command! -range Zen2han :<line1>,<line2>!perl -CIO -pE "use utf8;tr/０-９Ａ-Ｚａ-ｚ　！“”＃＄％＆‘’（）＊＋，－．／：；＜＝＞？＠［］＾＿｛｜｝/0-9A-Za-z \!\"\"\#\$\%&\'\'()*+,\\-.\\/:;<=>?@[]^_{\|}/"
+command! Randstr8 :r!perl -e 'print ['A'..'Z','0'..'9']->[int(rand(34))] for(1..8)'
+"command! Randstr8 :r!perl -e 'print "\#"; print ['A'..'Z','0'..'9']->[int(rand(34))] for(1..8)'
+command! -nargs=1 Grep :vim <args> **|cw|/<args>
+command! Genmemotags :!grep  -P '[ \t　\#][0-9A-Z]{8}\r*$' *.txt **/*.txt | tr -d $"\r" | perl -CIO -nE 'use utf8;@a=split ":";if($a[1] \!~ /→/ && ($a[1] \!~ /□/ || $a[1] =~ /^□/)){if($a[1]=~/([0-9A-Z]{8})$/){$k=$1;$a[1]=~s/\//\\\//g;print "$k\t$a[0]\t/^$a[1]"}}' | sort > .tags_in; cat .tags_in .tags_out | sort > tags
+command! GenmemotagsOut :!grep  -P '[ \t　\#][0-9A-Z]{8}\r*$' `cat .tags_path` | tr -d $"\r" | perl -CIO -nE 'use utf8;@a=split ":";if($a[0] \!~ / / && $a[1] \!~ /→/ && ($a[1] \!~ /□/ || $a[1] =~ /^□/)){if($a[1]=~/([0-9A-Z]{8})$/){$k=$1;$a[1]=~s/\//\\\//g;print "$k\t$a[0]\t/^$a[1]"}}' | sort > .tags_out
+
+command! IndentTab set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+command! IndentSpace set expandtab tabstop=2 softtabstop=2 shiftwidth=2
+" 作成中
+" command! AddHashTag :Randstr8kJr　
+
+" ---------------------------
+" post vimrc
+
+" シンタックスハイライト
+syntax enable
+"colorscheme monokai
+" デフォルトのインデント設定
+set tabstop=4
+set shiftwidth=4
+set autoindent
+" ファイルタイプの検出と各種プラグインオン
+filetype plugin indent on
+" ファイルタイプ設定とインデント設定
+augroup fileTypeSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.txt set filetype=mytxt
+    autocmd BufNewFile,BufRead *.txt setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.rb setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+" 検索語のハイライト
+set hlsearch
+" hlsearch color、検索語ハイライトの色
+hi Search ctermfg=black ctermbg=blue
+
+set history=3000
+
+
+" tagsの読み込みを一段上のディレクトリからも行わせるセミコロン追記
+set tags=./tags;

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # 以下のように実行する
-# RUBY_VER=2.6.5 RAILS_VER=5.2.4 sh ruby_and_rails_env_setting.sh
+#(ubuntu等の場合デフォのshellがdashだったりするので、ファイル名だけ指定し実行させる。)
+# RUBY_VER=2.6.5 RAILS_VER=5.2.4 ruby_and_rails_env_setting.sh
 
 # 環境変数設定
 # ------------------------------------------------------

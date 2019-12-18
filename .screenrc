@@ -1,5 +1,10 @@
+# screen起動時のメッセージ表示をオフ
 startup_message off
 
+# screenの機能で出力履歴をスクロールできるように
+termcapinfo xterm* ti@:te@
+
+# スクロールバッファ行を増やす
 defscrollback 10000
 
 # エスケープキー変更

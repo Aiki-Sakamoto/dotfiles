@@ -2,6 +2,9 @@ startup_message off
 
 defscrollback 10000
 
+# エスケープキー変更
+escape ^Tt
+
 # 現在の背景色で消去する(256色対応)
 defbce on
 

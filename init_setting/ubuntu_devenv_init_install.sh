@@ -2,7 +2,7 @@
 
 # yum update
 sudo apt update -y
-sudo apt upgrate -y
+sudo apt upgrade -y
 
 # develop env tools
 sudo apt install -y wget curl ssh screen whois zip unzip vim rdiff-backup rsync git tig subversion bc bash-completion

@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# 以下のように実行する
-#(ubuntu等の場合デフォのshellがdashだったりするので、ファイル名だけ指定し実行させる。)
-# RUBY_VER=2.6.5 RAILS_VER=5.2.4 ruby_and_rails_env_setting.sh
+# CentOSなら、以下のように実行する
+# RUBY_VER=2.6.5 RAILS_VER=5.2.4 sh ruby_and_rails_env_setting.sh
+# ubuntu等の場合デフォのshellがdashだったりするので、ファイル名だけ指定し実行させる。
+# RUBY_VER=2.6.5 RAILS_VER=5.2.4 ./ruby_and_rails_env_setting.sh
 
 # 環境変数設定
 # ------------------------------------------------------
@@ -10,8 +11,11 @@
 ruby_version="$RUBY_VER"
 # Railsのバージョンを実行時に指定
 rails_version="$RAILS_VER"
-
 # ------------------------------------------------------
+
+# .bash_profileが既に存在する場合は、コピーして置き換える
+cp ~/.bash_profile ~/.bash_profile.org
+
 #rbenvをclone
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
 

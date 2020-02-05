@@ -1,6 +1,9 @@
 # screen起動時のメッセージ表示をオフ
 startup_message off
 
+# screenの立ち上げ時にデフォルトのshellを読み込むように
+shell -$SHELL
+
 # screenの機能で出力履歴をスクロールできるように
 termcapinfo xterm* ti@:te@
 

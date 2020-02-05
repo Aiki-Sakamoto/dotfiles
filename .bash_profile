@@ -22,7 +22,7 @@ function parse_git_branch {
    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 # ブランチ名を表示できるように反映
-export PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\[\e[1;36m\]\]\$(parse_git_branch)\[\e[0m\]\]\n\$ "
+export PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\[\e[1;36m\]\] \$(parse_git_branch)\[\e[0m\]\]\n\$ "
 
 # ------------------------------------------
 

@@ -1,0 +1,29 @@
+" 行番号表示
+set number
+
+" シンタックスハイライト
+syntax enable
+
+"colorscheme monokai
+" デフォルトのインデント設定
+set tabstop=4
+set shiftwidth=4
+set autoindent
+
+" 検索語のハイライト
+set hlsearch
+" hlsearch color、検索語ハイライトの色
+hi Search ctermfg=black ctermbg=blue
+
+set history=3000
+
+" vim scriptの文字コード
+scriptencoding utf-8
+
+" 大文字小文字が混在しているときは区別
+set smartcase
+
+" タブや半角スペース行末のスペースなどの不可視文字を表示
+" 参考 https://blog.delphinus.dev/2011/08/display-invisible-characters-on-vim.html
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%

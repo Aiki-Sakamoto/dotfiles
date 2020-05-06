@@ -15,4 +15,4 @@ sudo yum install -y git --enablerepo=ius --disablerepo=base,epel,extras,updates
 sudo yum install -y wget curl ssh screen whois libiconv zip unzip vim rdiff-backup rsync tig subversion bc chere bash-completion
 
 # develop tools for ruby on rails app dependency
-sudo yum install -y gcc gcc-c++ openssl-devel readline-devel zlib-devel sqlite-devel postgresql-develop mysql-devel node.js npm
+sudo yum install -y gcc gcc-c++ openssl-devel readline-devel zlib-devel sqlite-devel postgresql-devel node.js npm

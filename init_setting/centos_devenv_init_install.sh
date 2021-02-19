@@ -21,4 +21,4 @@ sudo yum -y install tig
 sudo yum install -y wget curl screen whois zip unzip vim rsync subversion bc bash-completion
 
 # develop tools for ruby on rails app dependency
-sudo yum install -y gcc gcc-c++ openssl-devel readline-devel zlib-devel sqlite-devel postgresql-devel node.js npm
+sudo yum install -y gcc gcc-c++ openssl-devel readline-devel zlib-devel sqlite-devel postgresql-devel node.js npm mysql mysql-devel

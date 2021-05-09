@@ -38,6 +38,14 @@ hardstatus alwayslastline "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %Y %m/
 # windowを複数作りたければ、workspace 1 と増やしていく。
 # stuff "ここにコマンド\n" コマンドを実行できる。最後に改行"\n"を入れる。
 
-screen -t workspace 0
+screen -t home 0
 select 0
-stuff "cd ~/c/workspace/\n"
+stuff "cd ~\n"
+
+screen -t vagrant-d 1
+select 1
+stuff "cd /cygdrive/c/sakamoto-local/business/vagrant-d/\n"
+
+select 0
+
+

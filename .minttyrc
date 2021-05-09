@@ -27,5 +27,4 @@ Transparency=low
 CursorColour=248,248,242
 OpaqueWhenFocused=no
 Term=xterm-256color
-BoldAsFont=yes
-BoldAsColour=yes
+BellType=0

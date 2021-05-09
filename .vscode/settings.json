@@ -1,0 +1,39 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Monokai",
+  "remote.SSH.configFile": "C:\\cygwin64\\home\\sakamoto\\.ssh\\config",
+  "workbench.editor.enablePreview": false,
+  "terminal.integrated.defaultProfile.windows": "Cygwin",
+  "terminal.integrated.profiles.windows": {
+      "Cygwin": {
+          "path": "C:\\cygwin64\\bin\\bash.exe",
+          "args": [
+              "/bin/xhere", 
+              "/bin/bash"
+          ]
+      },
+      "PowerShell": {
+          "source": "PowerShell",
+          "icon": "terminal-powershell"
+      },
+      "Command Prompt": {
+          "path": [
+              "${env:windir}\\Sysnative\\cmd.exe",
+              "${env:windir}\\System32\\cmd.exe"
+          ],
+          "args": [],
+          "icon": "terminal-cmd"
+      },
+      "Git Bash": {
+          "source": "Git Bash"
+      }
+  },
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "[javascript]": {
+  "editor.tabSize": 2,
+  "editor.insertSpaces": false
+  },
+  "editor.renderWhitespace": "all"
+}
